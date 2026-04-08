@@ -10,8 +10,8 @@ services:
     runtime: node
     plan: free
     rootDir: .
-    buildCommand: pnpm install --frozen-lockfile && pnpm --filter api build
-    startCommand: pnpm --filter api exec prisma migrate deploy && pnpm --filter api start:prod
+    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile && pnpm --filter api build
+    startCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm --filter api exec prisma migrate deploy && pnpm --filter api start:prod
     envVars:
       - key: DATABASE_URL
         fromDatabase:
