@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Temporary dev rule so your current app (without Firebase Auth sign-in)
+    // can write player docs while you migrate from PostgreSQL.
+    match /players/{playerId} {
+      allow read, write: if true;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" aria-hidden="true">
+  <title>California (simplified)</title>
+  <rect width="3" height="2" fill="#fff"/>
+  <rect width="0.6" height="2" fill="#b71234"/>
+  <rect x="0.6" y="0.85" width="2.4" height="0.35" fill="#b71234"/>
+  <circle cx="1.85" cy="0.55" r="0.22" fill="#bd8a5a"/>
+</svg>

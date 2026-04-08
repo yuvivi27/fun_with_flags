@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Flags Trivia</string>
+    <string name="title_activity_main">Flags Trivia</string>
+    <string name="package_name">com.example.flagstrivia</string>
+    <string name="custom_url_scheme">com.example.flagstrivia</string>
+</resources>

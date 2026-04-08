@@ -1,0 +1,977 @@
+[
+  {
+    "code": "dz",
+    "name": "Algeria",
+    "difficulty": 1
+  },
+  {
+    "code": "ar",
+    "name": "Argentina",
+    "difficulty": 1
+  },
+  {
+    "code": "au",
+    "name": "Australia",
+    "difficulty": 1
+  },
+  {
+    "code": "at",
+    "name": "Austria",
+    "difficulty": 1
+  },
+  {
+    "code": "be",
+    "name": "Belgium",
+    "difficulty": 1
+  },
+  {
+    "code": "br",
+    "name": "Brazil",
+    "difficulty": 1
+  },
+  {
+    "code": "ca",
+    "name": "Canada",
+    "difficulty": 1
+  },
+  {
+    "code": "cl",
+    "name": "Chile",
+    "difficulty": 1
+  },
+  {
+    "code": "cn",
+    "name": "China",
+    "difficulty": 1
+  },
+  {
+    "code": "co",
+    "name": "Colombia",
+    "difficulty": 1
+  },
+  {
+    "code": "dk",
+    "name": "Denmark",
+    "difficulty": 1
+  },
+  {
+    "code": "eg",
+    "name": "Egypt",
+    "difficulty": 1
+  },
+  {
+    "code": "et",
+    "name": "Ethiopia",
+    "difficulty": 1
+  },
+  {
+    "code": "fi",
+    "name": "Finland",
+    "difficulty": 1
+  },
+  {
+    "code": "fr",
+    "name": "France",
+    "difficulty": 1
+  },
+  {
+    "code": "de",
+    "name": "Germany",
+    "difficulty": 1
+  },
+  {
+    "code": "gr",
+    "name": "Greece",
+    "difficulty": 1
+  },
+  {
+    "code": "in",
+    "name": "India",
+    "difficulty": 1
+  },
+  {
+    "code": "id",
+    "name": "Indonesia",
+    "difficulty": 1
+  },
+  {
+    "code": "ir",
+    "name": "Iran",
+    "difficulty": 1
+  },
+  {
+    "code": "ie",
+    "name": "Ireland",
+    "difficulty": 1
+  },
+  {
+    "code": "il",
+    "name": "Israel",
+    "difficulty": 1
+  },
+  {
+    "code": "it",
+    "name": "Italy",
+    "difficulty": 1
+  },
+  {
+    "code": "jp",
+    "name": "Japan",
+    "difficulty": 1
+  },
+  {
+    "code": "ke",
+    "name": "Kenya",
+    "difficulty": 1
+  },
+  {
+    "code": "ly",
+    "name": "Libya",
+    "difficulty": 1
+  },
+  {
+    "code": "my",
+    "name": "Malaysia",
+    "difficulty": 1
+  },
+  {
+    "code": "mx",
+    "name": "Mexico",
+    "difficulty": 1
+  },
+  {
+    "code": "ma",
+    "name": "Morocco",
+    "difficulty": 1
+  },
+  {
+    "code": "nl",
+    "name": "Netherlands",
+    "difficulty": 1
+  },
+  {
+    "code": "nz",
+    "name": "New Zealand",
+    "difficulty": 1
+  },
+  {
+    "code": "ng",
+    "name": "Nigeria",
+    "difficulty": 1
+  },
+  {
+    "code": "no",
+    "name": "Norway",
+    "difficulty": 1
+  },
+  {
+    "code": "pe",
+    "name": "Peru",
+    "difficulty": 1
+  },
+  {
+    "code": "ph",
+    "name": "Philippines",
+    "difficulty": 1
+  },
+  {
+    "code": "pl",
+    "name": "Poland",
+    "difficulty": 1
+  },
+  {
+    "code": "pt",
+    "name": "Portugal",
+    "difficulty": 1
+  },
+  {
+    "code": "ru",
+    "name": "Russia",
+    "difficulty": 1
+  },
+  {
+    "code": "sa",
+    "name": "Saudi Arabia",
+    "difficulty": 1
+  },
+  {
+    "code": "sg",
+    "name": "Singapore",
+    "difficulty": 1
+  },
+  {
+    "code": "za",
+    "name": "South Africa",
+    "difficulty": 1
+  },
+  {
+    "code": "kr",
+    "name": "South Korea",
+    "difficulty": 1
+  },
+  {
+    "code": "es",
+    "name": "Spain",
+    "difficulty": 1
+  },
+  {
+    "code": "se",
+    "name": "Sweden",
+    "difficulty": 1
+  },
+  {
+    "code": "ch",
+    "name": "Switzerland",
+    "difficulty": 1
+  },
+  {
+    "code": "th",
+    "name": "Thailand",
+    "difficulty": 1
+  },
+  {
+    "code": "tn",
+    "name": "Tunisia",
+    "difficulty": 1
+  },
+  {
+    "code": "tr",
+    "name": "Türkiye",
+    "difficulty": 1
+  },
+  {
+    "code": "ua",
+    "name": "Ukraine",
+    "difficulty": 1
+  },
+  {
+    "code": "gb",
+    "name": "United Kingdom",
+    "difficulty": 1
+  },
+  {
+    "code": "us",
+    "name": "United States",
+    "difficulty": 1
+  },
+  {
+    "code": "ve",
+    "name": "Venezuela",
+    "difficulty": 1
+  },
+  {
+    "code": "vn",
+    "name": "Vietnam",
+    "difficulty": 1
+  },
+  {
+    "code": "af",
+    "name": "Afghanistan",
+    "difficulty": 2
+  },
+  {
+    "code": "al",
+    "name": "Albania",
+    "difficulty": 2
+  },
+  {
+    "code": "ad",
+    "name": "Andorra",
+    "difficulty": 2
+  },
+  {
+    "code": "ao",
+    "name": "Angola",
+    "difficulty": 2
+  },
+  {
+    "code": "ag",
+    "name": "Antigua and Barbuda",
+    "difficulty": 2
+  },
+  {
+    "code": "am",
+    "name": "Armenia",
+    "difficulty": 2
+  },
+  {
+    "code": "az",
+    "name": "Azerbaijan",
+    "difficulty": 2
+  },
+  {
+    "code": "bs",
+    "name": "Bahamas",
+    "difficulty": 2
+  },
+  {
+    "code": "bh",
+    "name": "Bahrain",
+    "difficulty": 2
+  },
+  {
+    "code": "bd",
+    "name": "Bangladesh",
+    "difficulty": 2
+  },
+  {
+    "code": "bb",
+    "name": "Barbados",
+    "difficulty": 2
+  },
+  {
+    "code": "by",
+    "name": "Belarus",
+    "difficulty": 2
+  },
+  {
+    "code": "bz",
+    "name": "Belize",
+    "difficulty": 2
+  },
+  {
+    "code": "bj",
+    "name": "Benin",
+    "difficulty": 2
+  },
+  {
+    "code": "bt",
+    "name": "Bhutan",
+    "difficulty": 2
+  },
+  {
+    "code": "bo",
+    "name": "Bolivia",
+    "difficulty": 2
+  },
+  {
+    "code": "ba",
+    "name": "Bosnia and Herzegovina",
+    "difficulty": 2
+  },
+  {
+    "code": "bw",
+    "name": "Botswana",
+    "difficulty": 2
+  },
+  {
+    "code": "bn",
+    "name": "Brunei",
+    "difficulty": 2
+  },
+  {
+    "code": "bg",
+    "name": "Bulgaria",
+    "difficulty": 2
+  },
+  {
+    "code": "bf",
+    "name": "Burkina Faso",
+    "difficulty": 2
+  },
+  {
+    "code": "bi",
+    "name": "Burundi",
+    "difficulty": 2
+  },
+  {
+    "code": "kh",
+    "name": "Cambodia",
+    "difficulty": 2
+  },
+  {
+    "code": "cm",
+    "name": "Cameroon",
+    "difficulty": 2
+  },
+  {
+    "code": "cv",
+    "name": "Cape Verde",
+    "difficulty": 2
+  },
+  {
+    "code": "cf",
+    "name": "Central African Republic",
+    "difficulty": 2
+  },
+  {
+    "code": "td",
+    "name": "Chad",
+    "difficulty": 2
+  },
+  {
+    "code": "km",
+    "name": "Comoros",
+    "difficulty": 2
+  },
+  {
+    "code": "cr",
+    "name": "Costa Rica",
+    "difficulty": 2
+  },
+  {
+    "code": "hr",
+    "name": "Croatia",
+    "difficulty": 2
+  },
+  {
+    "code": "cu",
+    "name": "Cuba",
+    "difficulty": 2
+  },
+  {
+    "code": "cy",
+    "name": "Cyprus",
+    "difficulty": 2
+  },
+  {
+    "code": "cz",
+    "name": "Czech Republic",
+    "difficulty": 2
+  },
+  {
+    "code": "dj",
+    "name": "Djibouti",
+    "difficulty": 2
+  },
+  {
+    "code": "dm",
+    "name": "Dominica",
+    "difficulty": 2
+  },
+  {
+    "code": "do",
+    "name": "Dominican Republic",
+    "difficulty": 2
+  },
+  {
+    "code": "cd",
+    "name": "DR Congo",
+    "difficulty": 2
+  },
+  {
+    "code": "ec",
+    "name": "Ecuador",
+    "difficulty": 2
+  },
+  {
+    "code": "sv",
+    "name": "El Salvador",
+    "difficulty": 2
+  },
+  {
+    "code": "gq",
+    "name": "Equatorial Guinea",
+    "difficulty": 2
+  },
+  {
+    "code": "er",
+    "name": "Eritrea",
+    "difficulty": 2
+  },
+  {
+    "code": "ee",
+    "name": "Estonia",
+    "difficulty": 2
+  },
+  {
+    "code": "sz",
+    "name": "Eswatini",
+    "difficulty": 2
+  },
+  {
+    "code": "fj",
+    "name": "Fiji",
+    "difficulty": 2
+  },
+  {
+    "code": "ga",
+    "name": "Gabon",
+    "difficulty": 2
+  },
+  {
+    "code": "gm",
+    "name": "Gambia",
+    "difficulty": 2
+  },
+  {
+    "code": "ge",
+    "name": "Georgia",
+    "difficulty": 2
+  },
+  {
+    "code": "gh",
+    "name": "Ghana",
+    "difficulty": 2
+  },
+  {
+    "code": "gd",
+    "name": "Grenada",
+    "difficulty": 2
+  },
+  {
+    "code": "gt",
+    "name": "Guatemala",
+    "difficulty": 2
+  },
+  {
+    "code": "gn",
+    "name": "Guinea",
+    "difficulty": 2
+  },
+  {
+    "code": "gw",
+    "name": "Guinea-Bissau",
+    "difficulty": 2
+  },
+  {
+    "code": "gy",
+    "name": "Guyana",
+    "difficulty": 2
+  },
+  {
+    "code": "ht",
+    "name": "Haiti",
+    "difficulty": 2
+  },
+  {
+    "code": "hn",
+    "name": "Honduras",
+    "difficulty": 2
+  },
+  {
+    "code": "hu",
+    "name": "Hungary",
+    "difficulty": 2
+  },
+  {
+    "code": "is",
+    "name": "Iceland",
+    "difficulty": 2
+  },
+  {
+    "code": "iq",
+    "name": "Iraq",
+    "difficulty": 2
+  },
+  {
+    "code": "ci",
+    "name": "Ivory Coast",
+    "difficulty": 2
+  },
+  {
+    "code": "jm",
+    "name": "Jamaica",
+    "difficulty": 2
+  },
+  {
+    "code": "jo",
+    "name": "Jordan",
+    "difficulty": 2
+  },
+  {
+    "code": "kz",
+    "name": "Kazakhstan",
+    "difficulty": 2
+  },
+  {
+    "code": "ki",
+    "name": "Kiribati",
+    "difficulty": 2
+  },
+  {
+    "code": "kw",
+    "name": "Kuwait",
+    "difficulty": 2
+  },
+  {
+    "code": "kg",
+    "name": "Kyrgyzstan",
+    "difficulty": 2
+  },
+  {
+    "code": "la",
+    "name": "Laos",
+    "difficulty": 2
+  },
+  {
+    "code": "lv",
+    "name": "Latvia",
+    "difficulty": 2
+  },
+  {
+    "code": "lb",
+    "name": "Lebanon",
+    "difficulty": 2
+  },
+  {
+    "code": "ls",
+    "name": "Lesotho",
+    "difficulty": 2
+  },
+  {
+    "code": "lr",
+    "name": "Liberia",
+    "difficulty": 2
+  },
+  {
+    "code": "li",
+    "name": "Liechtenstein",
+    "difficulty": 2
+  },
+  {
+    "code": "lt",
+    "name": "Lithuania",
+    "difficulty": 2
+  },
+  {
+    "code": "lu",
+    "name": "Luxembourg",
+    "difficulty": 2
+  },
+  {
+    "code": "mg",
+    "name": "Madagascar",
+    "difficulty": 2
+  },
+  {
+    "code": "mw",
+    "name": "Malawi",
+    "difficulty": 2
+  },
+  {
+    "code": "mv",
+    "name": "Maldives",
+    "difficulty": 2
+  },
+  {
+    "code": "ml",
+    "name": "Mali",
+    "difficulty": 2
+  },
+  {
+    "code": "mt",
+    "name": "Malta",
+    "difficulty": 2
+  },
+  {
+    "code": "mh",
+    "name": "Marshall Islands",
+    "difficulty": 2
+  },
+  {
+    "code": "mr",
+    "name": "Mauritania",
+    "difficulty": 2
+  },
+  {
+    "code": "mu",
+    "name": "Mauritius",
+    "difficulty": 2
+  },
+  {
+    "code": "fm",
+    "name": "Micronesia",
+    "difficulty": 2
+  },
+  {
+    "code": "md",
+    "name": "Moldova",
+    "difficulty": 2
+  },
+  {
+    "code": "mc",
+    "name": "Monaco",
+    "difficulty": 2
+  },
+  {
+    "code": "mn",
+    "name": "Mongolia",
+    "difficulty": 2
+  },
+  {
+    "code": "me",
+    "name": "Montenegro",
+    "difficulty": 2
+  },
+  {
+    "code": "mz",
+    "name": "Mozambique",
+    "difficulty": 2
+  },
+  {
+    "code": "mm",
+    "name": "Myanmar",
+    "difficulty": 2
+  },
+  {
+    "code": "na",
+    "name": "Namibia",
+    "difficulty": 2
+  },
+  {
+    "code": "nr",
+    "name": "Nauru",
+    "difficulty": 2
+  },
+  {
+    "code": "np",
+    "name": "Nepal",
+    "difficulty": 2
+  },
+  {
+    "code": "ni",
+    "name": "Nicaragua",
+    "difficulty": 2
+  },
+  {
+    "code": "ne",
+    "name": "Niger",
+    "difficulty": 2
+  },
+  {
+    "code": "kp",
+    "name": "North Korea",
+    "difficulty": 2
+  },
+  {
+    "code": "mk",
+    "name": "North Macedonia",
+    "difficulty": 2
+  },
+  {
+    "code": "om",
+    "name": "Oman",
+    "difficulty": 2
+  },
+  {
+    "code": "pk",
+    "name": "Pakistan",
+    "difficulty": 2
+  },
+  {
+    "code": "pw",
+    "name": "Palau",
+    "difficulty": 2
+  },
+  {
+    "code": "pa",
+    "name": "Panama",
+    "difficulty": 2
+  },
+  {
+    "code": "pg",
+    "name": "Papua New Guinea",
+    "difficulty": 2
+  },
+  {
+    "code": "py",
+    "name": "Paraguay",
+    "difficulty": 2
+  },
+  {
+    "code": "qa",
+    "name": "Qatar",
+    "difficulty": 2
+  },
+  {
+    "code": "cg",
+    "name": "Republic of the Congo",
+    "difficulty": 2
+  },
+  {
+    "code": "ro",
+    "name": "Romania",
+    "difficulty": 2
+  },
+  {
+    "code": "rw",
+    "name": "Rwanda",
+    "difficulty": 2
+  },
+  {
+    "code": "kn",
+    "name": "Saint Kitts and Nevis",
+    "difficulty": 2
+  },
+  {
+    "code": "lc",
+    "name": "Saint Lucia",
+    "difficulty": 2
+  },
+  {
+    "code": "vc",
+    "name": "Saint Vincent and the Grenadines",
+    "difficulty": 2
+  },
+  {
+    "code": "ws",
+    "name": "Samoa",
+    "difficulty": 2
+  },
+  {
+    "code": "sm",
+    "name": "San Marino",
+    "difficulty": 2
+  },
+  {
+    "code": "st",
+    "name": "São Tomé and Príncipe",
+    "difficulty": 2
+  },
+  {
+    "code": "sn",
+    "name": "Senegal",
+    "difficulty": 2
+  },
+  {
+    "code": "rs",
+    "name": "Serbia",
+    "difficulty": 2
+  },
+  {
+    "code": "sc",
+    "name": "Seychelles",
+    "difficulty": 2
+  },
+  {
+    "code": "sl",
+    "name": "Sierra Leone",
+    "difficulty": 2
+  },
+  {
+    "code": "sk",
+    "name": "Slovakia",
+    "difficulty": 2
+  },
+  {
+    "code": "si",
+    "name": "Slovenia",
+    "difficulty": 2
+  },
+  {
+    "code": "sb",
+    "name": "Solomon Islands",
+    "difficulty": 2
+  },
+  {
+    "code": "so",
+    "name": "Somalia",
+    "difficulty": 2
+  },
+  {
+    "code": "ss",
+    "name": "South Sudan",
+    "difficulty": 2
+  },
+  {
+    "code": "lk",
+    "name": "Sri Lanka",
+    "difficulty": 2
+  },
+  {
+    "code": "sd",
+    "name": "Sudan",
+    "difficulty": 2
+  },
+  {
+    "code": "sr",
+    "name": "Suriname",
+    "difficulty": 2
+  },
+  {
+    "code": "sy",
+    "name": "Syria",
+    "difficulty": 2
+  },
+  {
+    "code": "tw",
+    "name": "Taiwan",
+    "difficulty": 2
+  },
+  {
+    "code": "tj",
+    "name": "Tajikistan",
+    "difficulty": 2
+  },
+  {
+    "code": "tz",
+    "name": "Tanzania",
+    "difficulty": 2
+  },
+  {
+    "code": "tl",
+    "name": "Timor-Leste",
+    "difficulty": 2
+  },
+  {
+    "code": "tg",
+    "name": "Togo",
+    "difficulty": 2
+  },
+  {
+    "code": "to",
+    "name": "Tonga",
+    "difficulty": 2
+  },
+  {
+    "code": "tt",
+    "name": "Trinidad and Tobago",
+    "difficulty": 2
+  },
+  {
+    "code": "tm",
+    "name": "Turkmenistan",
+    "difficulty": 2
+  },
+  {
+    "code": "tv",
+    "name": "Tuvalu",
+    "difficulty": 2
+  },
+  {
+    "code": "ug",
+    "name": "Uganda",
+    "difficulty": 2
+  },
+  {
+    "code": "ae",
+    "name": "United Arab Emirates",
+    "difficulty": 2
+  },
+  {
+    "code": "uy",
+    "name": "Uruguay",
+    "difficulty": 2
+  },
+  {
+    "code": "uz",
+    "name": "Uzbekistan",
+    "difficulty": 2
+  },
+  {
+    "code": "vu",
+    "name": "Vanuatu",
+    "difficulty": 2
+  },
+  {
+    "code": "va",
+    "name": "Vatican City",
+    "difficulty": 2
+  },
+  {
+    "code": "ye",
+    "name": "Yemen",
+    "difficulty": 2
+  },
+  {
+    "code": "zm",
+    "name": "Zambia",
+    "difficulty": 2
+  },
+  {
+    "code": "zw",
+    "name": "Zimbabwe",
+    "difficulty": 2
+  }
+]

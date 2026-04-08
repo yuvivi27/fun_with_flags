@@ -1,0 +1,81 @@
+.page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: min(100%, 24rem);
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: rgba(20, 20, 20, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  margin: 0;
+  text-align: center;
+  opacity: 0.82;
+  font-size: 0.95rem;
+}
+
+.label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 10, 10, 0.42);
+  color: inherit;
+  min-height: 2.7rem;
+  padding: 0 0.8rem;
+}
+
+.button {
+  width: 100%;
+  min-height: 3rem;
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(
+    135deg,
+    rgb(37, 99, 235) 0%,
+    rgb(109, 40, 217) 50%,
+    rgb(219, 39, 119) 100%
+  );
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 0;
+  color: #fca5a5;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}

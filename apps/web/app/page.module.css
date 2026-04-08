@@ -1,10 +1,10 @@
 .page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+  --gray-rgb: 255, 255, 255;
+  --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
+  --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
+  --button-primary-hover: #ccc;
+  --button-secondary-hover: #1a1a1a;
 
   display: grid;
   grid-template-rows: 20px 1fr 20px;
@@ -14,17 +14,30 @@
   padding: 80px;
   gap: 64px;
   font-synthesis: none;
+  background:
+    radial-gradient(
+      900px circle at 10% 10%,
+      rgba(99, 102, 241, 0.22),
+      transparent 50%
+    ),
+    radial-gradient(
+      900px circle at 90% 20%,
+      rgba(236, 72, 153, 0.18),
+      transparent 50%
+    ),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.96), rgba(10, 10, 10, 1));
+  color: var(--text-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+.menuButton:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.65);
+  outline-offset: 3px;
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
+.menuButton:active {
+  transform: scale(0.98);
+  filter: brightness(0.94);
+  transition-duration: 0.08s;
 }
 
 .main {
@@ -32,6 +45,297 @@
   flex-direction: column;
   gap: 32px;
   grid-row-start: 2;
+  align-items: center;
+  text-align: center;
+}
+
+/* Game: fixed column width so the quiz card never shrink-wraps to the longest answer line */
+.mainGame {
+  justify-self: center;
+  width: min(100%, 28rem);
+  max-width: 28rem;
+  min-width: 0;
+  box-sizing: border-box;
+  align-items: stretch;
+  gap: 0.85rem;
+  grid-row-start: auto;
+  position: relative;
+}
+
+.mainGame .heroTitle {
+  margin-top: 0;
+  padding-right: 0;
+}
+
+.pageGame {
+  grid-template-rows: 1fr;
+  padding: 12px 18px;
+  gap: 0;
+  overflow: hidden;
+  align-content: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .screenEnter {
+    animation: screenEnter 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes screenEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heroTitle {
+  font-family: var(--font-geist-sans);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  background: linear-gradient(
+    90deg,
+    rgba(37, 99, 235, 1),
+    rgba(124, 58, 237, 1),
+    rgba(219, 39, 119, 1)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroSubtitle {
+  font-family: var(--font-geist-mono);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  max-width: 28rem;
+}
+
+.brandLogoCentered {
+  width: min(16rem, 70vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 14px;
+}
+
+.brandLockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brandMark {
+  width: 180px;
+  height: 180px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  transform: translateZ(0);
+}
+
+.brandMarkSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 14px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.brandText {
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
+
+.brandName {
+  font-family: var(--font-geist-sans);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #d4af37;
+  text-transform: none;
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 0 6px 22px rgba(212, 175, 55, 0.28);
+}
+
+.aboutLinkWrap {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin-top: 0.25rem;
+}
+
+.linkedInButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 20rem;
+}
+
+.linkedInIcon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.menuStack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 20rem;
+  margin-top: 0.25rem;
+}
+
+.profileHud {
+  width: 100%;
+  max-width: 20rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 20, 20, 0.5);
+  display: grid;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.profileHud strong {
+  font-family: var(--font-geist-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.profileHud span {
+  font-family: var(--font-geist-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.menuButton {
+  appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0 1.35rem;
+  border-radius: 999px;
+  font-family: var(--font-geist-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease,
+    filter 0.12s ease;
+}
+
+.menuButtonPrimary {
+  /* Opaque stops + no border avoid subpixel fringing at pill edges */
+  background: linear-gradient(
+    135deg,
+    rgb(37, 99, 235) 0%,
+    rgb(109, 40, 217) 50%,
+    rgb(219, 39, 119) 100%
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: #fff;
+  overflow: hidden;
+  transform: translateZ(0);
+  box-shadow:
+    0 10px 28px rgba(37, 99, 235, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.menuButtonBack {
+  /* Same shape and treatment as primary, darker for stronger text contrast */
+  background: linear-gradient(
+    135deg,
+    rgb(29, 78, 216) 0%,
+    rgb(91, 33, 182) 50%,
+    rgb(190, 24, 93) 100%
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: #fff;
+  overflow: hidden;
+  transform: translateZ(0);
+  box-shadow:
+    0 10px 28px rgba(29, 78, 216, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.menuButtonSecondary {
+  background: rgba(20, 20, 20, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.aboutMain {
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 36rem;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: center;
+  padding-inline: clamp(1.75rem, 8vw, 3.5rem);
+}
+
+.aboutBody {
+  font-family: var(--font-geist-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  max-width: 26rem;
+  opacity: 0.92;
+}
+
+.aboutBody p {
+  margin: 0 0 1rem;
+}
+
+.aboutBody p:last-child {
+  margin-bottom: 0;
+}
+
+.aboutBodyLegend {
+  font-family: var(--font-geist-sans);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.7;
+  text-align: center;
+  text-wrap: balance;
+  max-width: 100%;
+  margin: 0;
+  color: var(--text-color);
+  letter-spacing: -0.012em;
 }
 
 .main ol {
@@ -56,59 +360,6 @@
   font-weight: 600;
 }
 
-.ctas {
-  display: flex;
-  gap: 16px;
-}
-
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  font-family: var(--font-geist-sans);
-  border: 1px solid transparent;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
-}
-
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
-}
-
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 180px;
-}
-
-button.secondary {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  font-family: var(--font-geist-sans);
-  border: 1px solid transparent;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
-  background: transparent;
-  border-color: var(--gray-alpha-200);
-  min-width: 180px;
-}
-
 .footer {
   font-family: var(--font-geist-sans);
   grid-row-start: 3;
@@ -128,12 +379,21 @@ button.secondary {
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+  .menuButtonPrimary:hover:not(:active) {
+    transform: translateY(-1px) translateZ(0);
+    box-shadow:
+      0 14px 34px rgba(124, 58, 237, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.26);
   }
 
-  a.secondary:hover {
+  .menuButtonBack:hover:not(:active) {
+    transform: translateY(-1px) translateZ(0);
+    box-shadow:
+      0 14px 36px rgba(91, 33, 182, 0.38),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .menuButtonSecondary:hover:not(:active) {
     background: var(--button-secondary-hover);
     border-color: transparent;
   }
@@ -146,30 +406,50 @@ button.secondary {
 
 @media (max-width: 600px) {
   .page {
+    --gray-rgb: 255, 255, 255;
+    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
+    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
     padding: 32px;
     padding-bottom: 80px;
+    background:
+      radial-gradient(
+        900px circle at 10% 10%,
+        rgba(99, 102, 241, 0.22),
+        transparent 50%
+      ),
+      radial-gradient(
+        900px circle at 90% 20%,
+        rgba(236, 72, 153, 0.18),
+        transparent 50%
+      ),
+      linear-gradient(180deg, rgba(10, 10, 10, 0.96), rgba(10, 10, 10, 1));
   }
 
   .main {
     align-items: center;
   }
 
+  .main.mainGame {
+    align-items: stretch;
+  }
+
   .main ol {
     text-align: center;
   }
 
-  .ctas {
-    flex-direction: column;
+  .menuStack {
+    max-width: 100%;
   }
 
-  .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
+  .menuButton {
+    min-height: 3rem;
+    font-size: 0.95rem;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  a.secondary {
-    min-width: auto;
+  .heroSubtitle {
+    color: rgba(237, 237, 237, 0.88);
   }
 
   .footer {
@@ -179,8 +459,13 @@ button.secondary {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+@media (hover: none) and (pointer: coarse) {
+  .menuButton:focus,
+  .menuButton:focus-visible,
+  .menuButton:active {
+    outline: none !important;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
   }
 }
+

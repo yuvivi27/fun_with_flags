@@ -9,6 +9,7 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "firebase-tools": "^15.13.0",
     "prettier": "^3.7.4",
     "turbo": "^2.8.19",
     "typescript": "5.9.2"
