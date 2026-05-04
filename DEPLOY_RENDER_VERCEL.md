@@ -28,12 +28,16 @@ After deploy, copy your public API URL:
 
 ## 3) Deploy web app on Vercel
 
+The repo includes a root [`vercel.json`](./vercel.json) so the install/build/output paths work with **pnpm workspaces** and **`@repo/player-leveling`** (Turbo builds it before Next).
+
 1. Open [Vercel Dashboard](https://vercel.com/dashboard).
 2. Click **Add New** -> **Project** -> import same repo.
 3. Configure:
-   - **Root Directory**: `apps/web`
-   - **Build Command**: `pnpm build:static`
-   - **Output Directory**: `out`
+   - **Root Directory**: `.` (repository root — **not** `apps/web`). If Root Directory is wrong, the deployment usually fails because workspace packages are not installed/built in order.
+   - Leave **Build / Output / Install** empty so Vercel uses `vercel.json`, or match it manually:
+     - **Install Command**: `corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile`
+     - **Build Command**: `pnpm exec turbo run build --filter=web`
+     - **Output Directory**: `apps/web/out`
 4. Set Environment Variables in Vercel project:
    - `NEXT_PUBLIC_API_URL=https://<your-render-api>.onrender.com`
    - `NEXT_PUBLIC_FIREBASE_API_KEY=...`
