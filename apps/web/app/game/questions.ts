@@ -3,78 +3,94 @@ import flagsData from "./flags-database.json";
 export type FlagEntry = {
   code: string;
   name: string;
-  /** 1 = widely recognized · 2 = other UN members & peers · 3 = reserved (not in active pool) */
-  difficulty: 1 | 2 | 3;
+  /**
+   * Single progression + scoring band (1–5).
+   * 1 = famous countries · 2 = broader pool · 3 = obscure islands · 4 = US states · 5 = advanced packs
+   */
+  difficulty: 1 | 2 | 3 | 4 | 5;
 };
 
 const rawFlags: FlagEntry[] = flagsData as FlagEntry[];
 
+const ENGLISH_NAME_OVERRIDES: Record<string, string> = {
+  "Türkiye": "Turkey",
+  "Réunion": "Reunion",
+  "Curaçao": "Curacao",
+  "Åland Islands": "Aland Islands",
+  "Saint Barthélemy": "Saint Barthelemy",
+  "São Tomé and Príncipe": "Sao Tome and Principe",
+  "Saint Helena, Ascension and Tristan da Cunha": "Saint Helena",
+  "South Georgia": "South Georgia and the South Sandwich Islands",
+};
+
+function normalizeEnglishName(name: string): string {
+  const override = ENGLISH_NAME_OVERRIDES[name];
+  if (override) return override;
+  return name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 const EXCLUDED_CODES = new Set([
   "ps", // Palestine
   "usc", // U.S. composite/state-style icon
+  // Temporary territory exclusions: these often resolve to sovereign-like flags
+  // in generic icon sets and create misleading quiz prompts.
+  "bl",
+  "bq",
+  "bv",
+  "cc",
+  "cx",
+  "gf",
+  "gp",
+  "hm",
+  "mf",
+  "mq",
+  "nf",
+  "pm",
+  "re",
+  "sj",
+  "tf",
+  "um",
+  "wf",
+  "yt",
 ]);
 
-const EXCLUDED_NAMES = new Set([
-  "alabama",
-  "alaska",
-  "arizona",
-  "arkansas",
-  "california",
-  "colorado",
-  "connecticut",
-  "delaware",
-  "florida",
-  "georgia",
-  "hawaii",
-  "idaho",
-  "illinois",
-  "indiana",
-  "iowa",
-  "kansas",
-  "kentucky",
-  "louisiana",
-  "maine",
-  "maryland",
-  "massachusetts",
-  "michigan",
-  "minnesota",
-  "mississippi",
-  "missouri",
-  "montana",
-  "nebraska",
-  "nevada",
-  "new hampshire",
-  "new jersey",
-  "new mexico",
-  "new york",
-  "north carolina",
-  "north dakota",
-  "ohio",
-  "oklahoma",
-  "oregon",
-  "pennsylvania",
-  "rhode island",
-  "south carolina",
-  "south dakota",
-  "tennessee",
-  "texas",
-  "utah",
-  "vermont",
-  "virginia",
-  "washington",
-  "west virginia",
-  "wisconsin",
-  "wyoming",
-  "district of columbia",
-]);
+const CUSTOM_TERRITORY_ENTRIES: FlagEntry[] = [
+  { code: "ac", name: "Ascension Island", difficulty: 2 },
+  { code: "ta", name: "Tristan da Cunha", difficulty: 2 },
+];
 
-/** Sovereign-country pool only: Levels 1–2; excludes Palestine (`ps`) and any Level-3 rows. */
-export const FLAGS_DATABASE: FlagEntry[] = rawFlags.filter(
-  (row) =>
-    row.difficulty !== 3 &&
-    !EXCLUDED_CODES.has(row.code.toLowerCase()) &&
-    !EXCLUDED_NAMES.has(row.name.toLowerCase()),
-);
+/** Base flag pool used by the quiz. */
+export const FLAGS_DATABASE: FlagEntry[] = [...rawFlags, ...CUSTOM_TERRITORY_ENTRIES]
+  .filter((row) => !EXCLUDED_CODES.has(row.code.toLowerCase()))
+  .map((row) => ({
+    ...row,
+    name: normalizeEnglishName(row.name),
+  }))
+  .filter(
+    (row, index, arr) =>
+      arr.findIndex((candidate) => candidate.code === row.code) === index,
+  );
+
+/**
+ * Max `difficulty` band unlocked for a player level:
+ * - 1: levels 1–3
+ * - 2: levels 4–6
+ * - 3: levels 7–8
+ * - 4–5: level 9+ (US states + advanced / historical / cultural pack together)
+ */
+export function getMaxDifficultyForPlayerLevel(
+  playerLevel: number,
+): 1 | 2 | 3 | 4 | 5 {
+  if (playerLevel >= 9) return 5;
+  if (playerLevel >= 7) return 3;
+  if (playerLevel >= 4) return 2;
+  return 1;
+}
+
+export function getFlagsForPlayerLevel(playerLevel: number): FlagEntry[] {
+  const maxDifficulty = getMaxDifficultyForPlayerLevel(playerLevel);
+  return FLAGS_DATABASE.filter((row) => row.difficulty <= maxDifficulty);
+}
 
 /** Local SVG under `public/flags/` — run `pnpm --filter web run flags:sync` after flag-icons updates */
 export function flagImageSrc(countryCode: string): string {

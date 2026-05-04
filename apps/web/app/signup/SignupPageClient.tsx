@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
+import { AuthBackHomeLink } from "../../features/auth/AuthBackHomeLink";
+import { PasswordField } from "../../features/auth/PasswordField";
+import { useAutoHidePasswordVisibility } from "../../features/auth/useAutoHidePasswordVisibility";
 import { useAuth } from "../auth-context";
 import styles from "../auth.module.css";
 
@@ -13,6 +16,9 @@ export default function SignupPageClient() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const passwordPeek = useAutoHidePasswordVisibility();
+  const confirmPeek = useAutoHidePasswordVisibility();
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -23,6 +29,10 @@ export default function SignupPageClient() {
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -37,6 +47,7 @@ export default function SignupPageClient() {
 
   return (
     <div className={styles.page}>
+      <AuthBackHomeLink />
       <form className={styles.card} onSubmit={onSubmit}>
         <h1 className={styles.title}>Sign up</h1>
         <p className={styles.subtitle}>Create your player profile.</p>
@@ -66,18 +77,27 @@ export default function SignupPageClient() {
           />
         </label>
 
-        <label className={styles.label}>
-          Password
-          <input
-            className={styles.input}
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="new-password"
-            minLength={8}
-            required
-          />
-        </label>
+        <PasswordField
+          label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="new-password"
+          minLength={8}
+          required
+          showPassword={passwordPeek.visible}
+          onTogglePassword={passwordPeek.toggle}
+        />
+
+        <PasswordField
+          label="Verify password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          autoComplete="new-password"
+          minLength={8}
+          required
+          showPassword={confirmPeek.visible}
+          onTogglePassword={confirmPeek.toggle}
+        />
 
         {error ? <p className={styles.error}>{error}</p> : null}
 

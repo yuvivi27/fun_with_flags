@@ -270,8 +270,18 @@
     "difficulty": 2
   },
   {
+    "code": "ax",
+    "name": "Åland Islands",
+    "difficulty": 2
+  },
+  {
     "code": "al",
     "name": "Albania",
+    "difficulty": 2
+  },
+  {
+    "code": "as",
+    "name": "American Samoa",
     "difficulty": 2
   },
   {
@@ -285,6 +295,11 @@
     "difficulty": 2
   },
   {
+    "code": "ai",
+    "name": "Anguilla",
+    "difficulty": 2
+  },
+  {
     "code": "ag",
     "name": "Antigua and Barbuda",
     "difficulty": 2
@@ -292,6 +307,11 @@
   {
     "code": "am",
     "name": "Armenia",
+    "difficulty": 2
+  },
+  {
+    "code": "aw",
+    "name": "Aruba",
     "difficulty": 2
   },
   {
@@ -335,6 +355,11 @@
     "difficulty": 2
   },
   {
+    "code": "bm",
+    "name": "Bermuda",
+    "difficulty": 2
+  },
+  {
     "code": "bt",
     "name": "Bhutan",
     "difficulty": 2
@@ -352,6 +377,21 @@
   {
     "code": "bw",
     "name": "Botswana",
+    "difficulty": 2
+  },
+  {
+    "code": "bv",
+    "name": "Bouvet Island",
+    "difficulty": 2
+  },
+  {
+    "code": "io",
+    "name": "British Indian Ocean Territory",
+    "difficulty": 2
+  },
+  {
+    "code": "vg",
+    "name": "British Virgin Islands",
     "difficulty": 2
   },
   {
@@ -390,6 +430,16 @@
     "difficulty": 2
   },
   {
+    "code": "bq",
+    "name": "Caribbean Netherlands",
+    "difficulty": 2
+  },
+  {
+    "code": "ky",
+    "name": "Cayman Islands",
+    "difficulty": 2
+  },
+  {
     "code": "cf",
     "name": "Central African Republic",
     "difficulty": 2
@@ -400,8 +450,23 @@
     "difficulty": 2
   },
   {
+    "code": "cx",
+    "name": "Christmas Island",
+    "difficulty": 2
+  },
+  {
+    "code": "cc",
+    "name": "Cocos (Keeling) Islands",
+    "difficulty": 2
+  },
+  {
     "code": "km",
     "name": "Comoros",
+    "difficulty": 2
+  },
+  {
+    "code": "ck",
+    "name": "Cook Islands",
     "difficulty": 2
   },
   {
@@ -417,6 +482,11 @@
   {
     "code": "cu",
     "name": "Cuba",
+    "difficulty": 2
+  },
+  {
+    "code": "cw",
+    "name": "Curaçao",
     "difficulty": 2
   },
   {
@@ -480,8 +550,33 @@
     "difficulty": 2
   },
   {
+    "code": "fk",
+    "name": "Falkland Islands",
+    "difficulty": 2
+  },
+  {
+    "code": "fo",
+    "name": "Faroe Islands",
+    "difficulty": 2
+  },
+  {
     "code": "fj",
     "name": "Fiji",
+    "difficulty": 2
+  },
+  {
+    "code": "gf",
+    "name": "French Guiana",
+    "difficulty": 2
+  },
+  {
+    "code": "pf",
+    "name": "French Polynesia",
+    "difficulty": 2
+  },
+  {
+    "code": "tf",
+    "name": "French Southern and Antarctic Lands",
     "difficulty": 2
   },
   {
@@ -495,13 +590,18 @@
     "difficulty": 2
   },
   {
-    "code": "ge",
-    "name": "Georgia",
+    "code": "gh",
+    "name": "Ghana",
     "difficulty": 2
   },
   {
-    "code": "gh",
-    "name": "Ghana",
+    "code": "gi",
+    "name": "Gibraltar",
+    "difficulty": 2
+  },
+  {
+    "code": "gl",
+    "name": "Greenland",
     "difficulty": 2
   },
   {
@@ -510,8 +610,23 @@
     "difficulty": 2
   },
   {
+    "code": "gp",
+    "name": "Guadeloupe",
+    "difficulty": 2
+  },
+  {
+    "code": "gu",
+    "name": "Guam",
+    "difficulty": 2
+  },
+  {
     "code": "gt",
     "name": "Guatemala",
+    "difficulty": 2
+  },
+  {
+    "code": "gg",
+    "name": "Guernsey",
     "difficulty": 2
   },
   {
@@ -535,8 +650,18 @@
     "difficulty": 2
   },
   {
+    "code": "hm",
+    "name": "Heard Island and McDonald Islands",
+    "difficulty": 2
+  },
+  {
     "code": "hn",
     "name": "Honduras",
+    "difficulty": 2
+  },
+  {
+    "code": "hk",
+    "name": "Hong Kong",
     "difficulty": 2
   },
   {
@@ -555,6 +680,11 @@
     "difficulty": 2
   },
   {
+    "code": "im",
+    "name": "Isle of Man",
+    "difficulty": 2
+  },
+  {
     "code": "ci",
     "name": "Ivory Coast",
     "difficulty": 2
@@ -562,6 +692,11 @@
   {
     "code": "jm",
     "name": "Jamaica",
+    "difficulty": 2
+  },
+  {
+    "code": "je",
+    "name": "Jersey",
     "difficulty": 2
   },
   {
@@ -575,8 +710,8 @@
     "difficulty": 2
   },
   {
-    "code": "ki",
-    "name": "Kiribati",
+    "code": "xk",
+    "name": "Kosovo",
     "difficulty": 2
   },
   {
@@ -630,6 +765,11 @@
     "difficulty": 2
   },
   {
+    "code": "mo",
+    "name": "Macau",
+    "difficulty": 2
+  },
+  {
     "code": "mg",
     "name": "Madagascar",
     "difficulty": 2
@@ -637,11 +777,6 @@
   {
     "code": "mw",
     "name": "Malawi",
-    "difficulty": 2
-  },
-  {
-    "code": "mv",
-    "name": "Maldives",
     "difficulty": 2
   },
   {
@@ -655,8 +790,8 @@
     "difficulty": 2
   },
   {
-    "code": "mh",
-    "name": "Marshall Islands",
+    "code": "mq",
+    "name": "Martinique",
     "difficulty": 2
   },
   {
@@ -670,8 +805,8 @@
     "difficulty": 2
   },
   {
-    "code": "fm",
-    "name": "Micronesia",
+    "code": "yt",
+    "name": "Mayotte",
     "difficulty": 2
   },
   {
@@ -695,6 +830,11 @@
     "difficulty": 2
   },
   {
+    "code": "ms",
+    "name": "Montserrat",
+    "difficulty": 2
+  },
+  {
     "code": "mz",
     "name": "Mozambique",
     "difficulty": 2
@@ -710,13 +850,13 @@
     "difficulty": 2
   },
   {
-    "code": "nr",
-    "name": "Nauru",
+    "code": "np",
+    "name": "Nepal",
     "difficulty": 2
   },
   {
-    "code": "np",
-    "name": "Nepal",
+    "code": "nc",
+    "name": "New Caledonia",
     "difficulty": 2
   },
   {
@@ -730,6 +870,16 @@
     "difficulty": 2
   },
   {
+    "code": "nu",
+    "name": "Niue",
+    "difficulty": 2
+  },
+  {
+    "code": "nf",
+    "name": "Norfolk Island",
+    "difficulty": 2
+  },
+  {
     "code": "kp",
     "name": "North Korea",
     "difficulty": 2
@@ -737,6 +887,11 @@
   {
     "code": "mk",
     "name": "North Macedonia",
+    "difficulty": 2
+  },
+  {
+    "code": "mp",
+    "name": "Northern Mariana Islands",
     "difficulty": 2
   },
   {
@@ -750,8 +905,8 @@
     "difficulty": 2
   },
   {
-    "code": "pw",
-    "name": "Palau",
+    "code": "ps",
+    "name": "Palestine",
     "difficulty": 2
   },
   {
@@ -770,6 +925,16 @@
     "difficulty": 2
   },
   {
+    "code": "pn",
+    "name": "Pitcairn Islands",
+    "difficulty": 2
+  },
+  {
+    "code": "pr",
+    "name": "Puerto Rico",
+    "difficulty": 2
+  },
+  {
     "code": "qa",
     "name": "Qatar",
     "difficulty": 2
@@ -777,6 +942,11 @@
   {
     "code": "cg",
     "name": "Republic of the Congo",
+    "difficulty": 2
+  },
+  {
+    "code": "re",
+    "name": "Réunion",
     "difficulty": 2
   },
   {
@@ -790,6 +960,16 @@
     "difficulty": 2
   },
   {
+    "code": "bl",
+    "name": "Saint Barthélemy",
+    "difficulty": 2
+  },
+  {
+    "code": "sh",
+    "name": "Saint Helena, Ascension and Tristan da Cunha",
+    "difficulty": 2
+  },
+  {
     "code": "kn",
     "name": "Saint Kitts and Nevis",
     "difficulty": 2
@@ -800,13 +980,18 @@
     "difficulty": 2
   },
   {
-    "code": "vc",
-    "name": "Saint Vincent and the Grenadines",
+    "code": "mf",
+    "name": "Saint Martin",
     "difficulty": 2
   },
   {
-    "code": "ws",
-    "name": "Samoa",
+    "code": "pm",
+    "name": "Saint Pierre and Miquelon",
+    "difficulty": 2
+  },
+  {
+    "code": "vc",
+    "name": "Saint Vincent and the Grenadines",
     "difficulty": 2
   },
   {
@@ -830,13 +1015,13 @@
     "difficulty": 2
   },
   {
-    "code": "sc",
-    "name": "Seychelles",
+    "code": "sl",
+    "name": "Sierra Leone",
     "difficulty": 2
   },
   {
-    "code": "sl",
-    "name": "Sierra Leone",
+    "code": "sx",
+    "name": "Sint Maarten",
     "difficulty": 2
   },
   {
@@ -850,13 +1035,13 @@
     "difficulty": 2
   },
   {
-    "code": "sb",
-    "name": "Solomon Islands",
+    "code": "so",
+    "name": "Somalia",
     "difficulty": 2
   },
   {
-    "code": "so",
-    "name": "Somalia",
+    "code": "gs",
+    "name": "South Georgia",
     "difficulty": 2
   },
   {
@@ -877,6 +1062,11 @@
   {
     "code": "sr",
     "name": "Suriname",
+    "difficulty": 2
+  },
+  {
+    "code": "sj",
+    "name": "Svalbard and Jan Mayen",
     "difficulty": 2
   },
   {
@@ -910,8 +1100,8 @@
     "difficulty": 2
   },
   {
-    "code": "to",
-    "name": "Tonga",
+    "code": "tk",
+    "name": "Tokelau",
     "difficulty": 2
   },
   {
@@ -925,8 +1115,8 @@
     "difficulty": 2
   },
   {
-    "code": "tv",
-    "name": "Tuvalu",
+    "code": "tc",
+    "name": "Turks and Caicos Islands",
     "difficulty": 2
   },
   {
@@ -940,6 +1130,16 @@
     "difficulty": 2
   },
   {
+    "code": "um",
+    "name": "United States Minor Outlying Islands",
+    "difficulty": 2
+  },
+  {
+    "code": "vi",
+    "name": "United States Virgin Islands",
+    "difficulty": 2
+  },
+  {
     "code": "uy",
     "name": "Uruguay",
     "difficulty": 2
@@ -950,13 +1150,18 @@
     "difficulty": 2
   },
   {
-    "code": "vu",
-    "name": "Vanuatu",
+    "code": "va",
+    "name": "Vatican City",
     "difficulty": 2
   },
   {
-    "code": "va",
-    "name": "Vatican City",
+    "code": "wf",
+    "name": "Wallis and Futuna",
+    "difficulty": 2
+  },
+  {
+    "code": "eh",
+    "name": "Western Sahara",
     "difficulty": 2
   },
   {
@@ -973,5 +1178,470 @@
     "code": "zw",
     "name": "Zimbabwe",
     "difficulty": 2
+  },
+  {
+    "code": "ki",
+    "name": "Kiribati",
+    "difficulty": 3
+  },
+  {
+    "code": "mv",
+    "name": "Maldives",
+    "difficulty": 3
+  },
+  {
+    "code": "mh",
+    "name": "Marshall Islands",
+    "difficulty": 3
+  },
+  {
+    "code": "fm",
+    "name": "Micronesia",
+    "difficulty": 3
+  },
+  {
+    "code": "nr",
+    "name": "Nauru",
+    "difficulty": 3
+  },
+  {
+    "code": "pw",
+    "name": "Palau",
+    "difficulty": 3
+  },
+  {
+    "code": "ws",
+    "name": "Samoa",
+    "difficulty": 3
+  },
+  {
+    "code": "sc",
+    "name": "Seychelles",
+    "difficulty": 3
+  },
+  {
+    "code": "sb",
+    "name": "Solomon Islands",
+    "difficulty": 3
+  },
+  {
+    "code": "to",
+    "name": "Tonga",
+    "difficulty": 3
+  },
+  {
+    "code": "tv",
+    "name": "Tuvalu",
+    "difficulty": 3
+  },
+  {
+    "code": "vu",
+    "name": "Vanuatu",
+    "difficulty": 3
+  },
+  {
+    "code": "us-al",
+    "name": "Alabama",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ak",
+    "name": "Alaska",
+    "difficulty": 4
+  },
+  {
+    "code": "us-az",
+    "name": "Arizona",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ar",
+    "name": "Arkansas",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ca",
+    "name": "California",
+    "difficulty": 4
+  },
+  {
+    "code": "us-co",
+    "name": "Colorado",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ct",
+    "name": "Connecticut",
+    "difficulty": 4
+  },
+  {
+    "code": "us-de",
+    "name": "Delaware",
+    "difficulty": 4
+  },
+  {
+    "code": "us-fl",
+    "name": "Florida",
+    "difficulty": 4
+  },
+  {
+    "code": "ge",
+    "name": "Georgia",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ga",
+    "name": "Georgia",
+    "difficulty": 4
+  },
+  {
+    "code": "us-hi",
+    "name": "Hawaii",
+    "difficulty": 4
+  },
+  {
+    "code": "us-id",
+    "name": "Idaho",
+    "difficulty": 4
+  },
+  {
+    "code": "us-il",
+    "name": "Illinois",
+    "difficulty": 4
+  },
+  {
+    "code": "us-in",
+    "name": "Indiana",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ia",
+    "name": "Iowa",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ks",
+    "name": "Kansas",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ky",
+    "name": "Kentucky",
+    "difficulty": 4
+  },
+  {
+    "code": "us-la",
+    "name": "Louisiana",
+    "difficulty": 4
+  },
+  {
+    "code": "us-me",
+    "name": "Maine",
+    "difficulty": 4
+  },
+  {
+    "code": "us-md",
+    "name": "Maryland",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ma",
+    "name": "Massachusetts",
+    "difficulty": 4
+  },
+  {
+    "code": "us-mi",
+    "name": "Michigan",
+    "difficulty": 4
+  },
+  {
+    "code": "us-mn",
+    "name": "Minnesota",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ms",
+    "name": "Mississippi",
+    "difficulty": 4
+  },
+  {
+    "code": "us-mo",
+    "name": "Missouri",
+    "difficulty": 4
+  },
+  {
+    "code": "us-mt",
+    "name": "Montana",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ne",
+    "name": "Nebraska",
+    "difficulty": 4
+  },
+  {
+    "code": "us-nv",
+    "name": "Nevada",
+    "difficulty": 4
+  },
+  {
+    "code": "us-nh",
+    "name": "New Hampshire",
+    "difficulty": 4
+  },
+  {
+    "code": "us-nj",
+    "name": "New Jersey",
+    "difficulty": 4
+  },
+  {
+    "code": "us-nm",
+    "name": "New Mexico",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ny",
+    "name": "New York",
+    "difficulty": 4
+  },
+  {
+    "code": "us-nc",
+    "name": "North Carolina",
+    "difficulty": 4
+  },
+  {
+    "code": "us-nd",
+    "name": "North Dakota",
+    "difficulty": 4
+  },
+  {
+    "code": "us-oh",
+    "name": "Ohio",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ok",
+    "name": "Oklahoma",
+    "difficulty": 4
+  },
+  {
+    "code": "us-or",
+    "name": "Oregon",
+    "difficulty": 4
+  },
+  {
+    "code": "us-pa",
+    "name": "Pennsylvania",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ri",
+    "name": "Rhode Island",
+    "difficulty": 4
+  },
+  {
+    "code": "us-sc",
+    "name": "South Carolina",
+    "difficulty": 4
+  },
+  {
+    "code": "us-sd",
+    "name": "South Dakota",
+    "difficulty": 4
+  },
+  {
+    "code": "us-tn",
+    "name": "Tennessee",
+    "difficulty": 4
+  },
+  {
+    "code": "us-tx",
+    "name": "Texas",
+    "difficulty": 4
+  },
+  {
+    "code": "us-ut",
+    "name": "Utah",
+    "difficulty": 4
+  },
+  {
+    "code": "us-vt",
+    "name": "Vermont",
+    "difficulty": 4
+  },
+  {
+    "code": "us-va",
+    "name": "Virginia",
+    "difficulty": 4
+  },
+  {
+    "code": "us-wa",
+    "name": "Washington",
+    "difficulty": 4
+  },
+  {
+    "code": "us-wv",
+    "name": "West Virginia",
+    "difficulty": 4
+  },
+  {
+    "code": "us-wi",
+    "name": "Wisconsin",
+    "difficulty": 4
+  },
+  {
+    "code": "us-wy",
+    "name": "Wyoming",
+    "difficulty": 4
+  },
+  {
+    "code": "arab",
+    "name": "Arab League",
+    "difficulty": 5
+  },
+  {
+    "code": "asean",
+    "name": "ASEAN",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-ah",
+    "name": "Austria-Hungary",
+    "difficulty": 5
+  },
+  {
+    "code": "es-pv",
+    "name": "Basque Country",
+    "difficulty": 5
+  },
+  {
+    "code": "ic",
+    "name": "Canary Islands",
+    "difficulty": 5
+  },
+  {
+    "code": "es-ct",
+    "name": "Catalonia",
+    "difficulty": 5
+  },
+  {
+    "code": "cefta",
+    "name": "CEFTA",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-cs",
+    "name": "Czechoslovakia",
+    "difficulty": 5
+  },
+  {
+    "code": "eth-druze",
+    "name": "Druze",
+    "difficulty": 5
+  },
+  {
+    "code": "eac",
+    "name": "East African Community",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-ddr",
+    "name": "East Germany (GDR)",
+    "difficulty": 5
+  },
+  {
+    "code": "gb-eng",
+    "name": "England",
+    "difficulty": 5
+  },
+  {
+    "code": "eu",
+    "name": "European Union",
+    "difficulty": 5
+  },
+  {
+    "code": "es-ga",
+    "name": "Galicia",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-de-imp",
+    "name": "German Empire",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-gran-col",
+    "name": "Gran Colombia",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-manchukuo",
+    "name": "Manchukuo",
+    "difficulty": 5
+  },
+  {
+    "code": "org-nato",
+    "name": "NATO",
+    "difficulty": 5
+  },
+  {
+    "code": "gb-nir",
+    "name": "Northern Ireland",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-ot",
+    "name": "Ottoman Empire",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-pr",
+    "name": "Prussia",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-tx-rep",
+    "name": "Republic of Texas",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-rhodesia",
+    "name": "Rhodesia",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-spqr",
+    "name": "Roman Empire (SPQR)",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-ru-imp",
+    "name": "Russian Empire",
+    "difficulty": 5
+  },
+  {
+    "code": "gb-sct",
+    "name": "Scotland",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-su",
+    "name": "Soviet Union (USSR)",
+    "difficulty": 5
+  },
+  {
+    "code": "un",
+    "name": "United Nations",
+    "difficulty": 5
+  },
+  {
+    "code": "gb-wls",
+    "name": "Wales",
+    "difficulty": 5
+  },
+  {
+    "code": "hist-yu",
+    "name": "Yugoslavia (SFR)",
+    "difficulty": 5
   }
 ]

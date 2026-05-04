@@ -1,32 +1,80 @@
 "use client";
 
+/**
+ * Full quiz flow for a single round: question loop (with image preload and timer),
+ * optional retake, summary, XP handoff via `completeRound`, and final screen.
+ * Split into subcomponents in this folder for readability; state stays centralized here.
+ */
+
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type MutableRefObject,
+} from "react";
 import { useAuth } from "../auth-context";
 import layout from "../page.module.css";
 import styles from "./game.module.css";
-import { FLAGS_DATABASE, flagImageSrc } from "./questions";
+import { LevelUpCelebration } from "./LevelUpCelebration";
+import { getUnlockLinesForLevelUp } from "./progression-messages";
+import {
+  effectivePlayerLevelFromUser,
+  levelFromTotalXp,
+} from "@repo/player-leveling";
+import { flagImageSrc, getFlagsForPlayerLevel } from "./questions";
 
 const QUESTION_SECONDS = 30;
 const ADVANCE_FEEDBACK_MS = 1100;
 /** Sentinel — never matches a real answer label */
 const TIMEOUT_SENTINEL = "__TIMEOUT__";
 
+/**
+ * Warm cache in the background. Intentionally no `fetchPriority` / no `high` —
+ * many concurrent high-priority preloads starve the visible quiz `<img>`.
+ * Only mark `loaded` after a successful load so transient failures can retry.
+ */
+export function preloadFlagSrc(
+  src: string,
+  loaded: MutableRefObject<Set<string>>,
+  inflight: MutableRefObject<Set<string>>,
+): void {
+  if (loaded.current.has(src) || inflight.current.has(src)) return;
+  inflight.current.add(src);
+  const img = new Image();
+  img.onload = () => {
+    inflight.current.delete(src);
+    loaded.current.add(src);
+    void img.decode?.().catch(() => undefined);
+  };
+  img.onerror = () => {
+    inflight.current.delete(src);
+  };
+  img.src = src;
+}
+
 type Phase = "playing" | "summary" | "final";
 type PlayMode = "initial" | "retake";
 
-function difficultyFactor(difficulty: 1 | 2): number {
-  return difficulty === 2 ? 1.2 : 1.0;
+export function difficultyFactor(difficulty: 1 | 2 | 3 | 4 | 5): number {
+  if (difficulty >= 5) return 1.55;
+  if (difficulty === 4) return 1.45;
+  if (difficulty === 3) return 1.35;
+  if (difficulty === 2) return 1.2;
+  return 1.0;
 }
 
-function scoreForCorrectAnswer(
+export function scoreForCorrectAnswer(
   secondsRemaining: number,
-  difficulty: 1 | 2,
+  difficulty: 1 | 2 | 3 | 4 | 5,
 ): number {
   return Math.floor((10 + secondsRemaining / 5) * difficultyFactor(difficulty));
 }
 
-function AnimatedFinalScore({
+export function AnimatedFinalScore({
   initialScore,
   finalScore,
   bonusPoints,
@@ -138,24 +186,24 @@ function AnimatedFinalScore({
   );
 }
 
-export type QuizClientProps = {
+type QuizClientProps = {
   requestedQuestionCount: number;
 };
 
 type QuizCountry = {
   countryCode: string;
   answer: string;
-  difficulty: 1 | 2;
+  difficulty: 1 | 2 | 3 | 4 | 5;
 };
 
 type QuizQuestionGenerated = {
   countryCode: string;
   answer: string;
-  difficulty: 1 | 2;
+  difficulty: 1 | 2 | 3 | 4 | 5;
   options: [string, string, string, string];
 };
 
-function shuffleArray<T>(arr: T[]): T[] {
+export function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -166,7 +214,7 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
-function buildQuestionForCountry(
+export function buildQuestionForCountry(
   country: QuizCountry,
   pool: QuizCountry[],
 ): QuizQuestionGenerated {
@@ -192,7 +240,7 @@ function buildQuestionForCountry(
   };
 }
 
-function dedupeQuestionsByCode(
+export function dedupeQuestionsByCode(
   list: QuizQuestionGenerated[],
 ): QuizQuestionGenerated[] {
   const m = new Map<string, QuizQuestionGenerated>();
@@ -202,10 +250,11 @@ function dedupeQuestionsByCode(
 
 export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
   const { completeRound, user } = useAuth();
+  const playerLevel = effectivePlayerLevelFromUser(user);
   const countryPool = useMemo(() => {
+    const levelFlags = getFlagsForPlayerLevel(playerLevel);
     const m = new Map<string, QuizCountry>();
-    for (const row of FLAGS_DATABASE) {
-      if (row.difficulty !== 1 && row.difficulty !== 2) continue;
+    for (const row of levelFlags) {
       m.set(row.code, {
         countryCode: row.code,
         answer: row.name,
@@ -213,7 +262,7 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
       });
     }
     return Array.from(m.values());
-  }, []);
+  }, [playerLevel]);
 
   const sessionQuestionCount = Math.min(
     Math.max(1, requestedQuestionCount),
@@ -230,16 +279,19 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
     );
   }
 
-  function buildRetakeRound(wrong: QuizQuestionGenerated[]): QuizQuestionGenerated[] {
-    const unique = dedupeQuestionsByCode(wrong);
-    const built = unique
-      .map((q) => {
-        const c = countryPool.find((x) => x.countryCode === q.countryCode);
-        return c ? buildQuestionForCountry(c, countryPool) : null;
-      })
-      .filter((x): x is QuizQuestionGenerated => x !== null);
-    return shuffleArray(built);
-  }
+  const buildRetakeRound = useCallback(
+    (wrong: QuizQuestionGenerated[]): QuizQuestionGenerated[] => {
+      const unique = dedupeQuestionsByCode(wrong);
+      const built = unique
+        .map((q) => {
+          const c = countryPool.find((x) => x.countryCode === q.countryCode);
+          return c ? buildQuestionForCountry(c, countryPool) : null;
+        })
+        .filter((x): x is QuizQuestionGenerated => x !== null);
+      return shuffleArray(built);
+    },
+    [countryPool],
+  );
 
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestionGenerated[]>(
     () => makeQuizQuestions(),
@@ -272,13 +324,28 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
     null,
   );
   const pointsPopIdRef = useRef(0);
-  const finalPersistedRef = useRef(false);
+  const [postRoundUi, setPostRoundUi] = useState<
+    "idle" | "saving" | "levelup" | "scores"
+  >("idle");
+  const [levelUpPayload, setLevelUpPayload] = useState<{
+    level: number;
+    lines: string[];
+  } | null>(null);
+  const wasInFinalRef = useRef(false);
+  const persistRoundRef = useRef(false);
 
   const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isLockedRef = useRef(false);
   const selectedRef = useRef<string | null>(null);
+  const preloadedFlagsRef = useRef<Set<string>>(new Set());
+  const preloadInflightRef = useRef<Set<string>>(new Set());
   selectedRef.current = selected;
+
+  const quizQuestionsRef = useRef(quizQuestions);
+  quizQuestionsRef.current = quizQuestions;
+  const indexRef = useRef(index);
+  indexRef.current = index;
 
   const question =
     phase === "playing" && index < roundTotal
@@ -301,6 +368,16 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
   }, []);
 
   const scheduleAdvanceToNext = useCallback(() => {
+    const qs = quizQuestionsRef.current;
+    const i = indexRef.current;
+    const nextQ = qs[i + 1];
+    if (nextQ) {
+      preloadFlagSrc(
+        flagImageSrc(nextQ.countryCode),
+        preloadedFlagsRef,
+        preloadInflightRef,
+      );
+    }
     clearAdvanceTimer();
     advanceTimerRef.current = setTimeout(() => {
       setPointsPop(null);
@@ -417,7 +494,10 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
     setCorrectCount(0);
     setPointsPop(null);
     setSecondsLeft(QUESTION_SECONDS);
-    finalPersistedRef.current = false;
+    setPostRoundUi("idle");
+    setLevelUpPayload(null);
+    wasInFinalRef.current = false;
+    persistRoundRef.current = false;
   };
 
   const finalScore = bonusEligible
@@ -425,17 +505,57 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
     : initialScore;
 
   useEffect(() => {
+    if (phase === "final") {
+      if (!wasInFinalRef.current) {
+        wasInFinalRef.current = true;
+        setPostRoundUi("saving");
+        persistRoundRef.current = false;
+        setLevelUpPayload(null);
+      }
+    } else {
+      wasInFinalRef.current = false;
+      setPostRoundUi("idle");
+      persistRoundRef.current = false;
+    }
+  }, [phase]);
+
+  useEffect(() => {
     if (phase !== "final") return;
-    if (finalPersistedRef.current) return;
-    finalPersistedRef.current = true;
+    if (postRoundUi !== "saving") return;
+    if (persistRoundRef.current) return;
+    persistRoundRef.current = true;
+
+    const beforeLevel = effectivePlayerLevelFromUser(user);
+
     void completeRound({
       score: finalScore,
       correct: correctCount,
       total: sessionQuestionCount,
-    }).catch(() => {
-      finalPersistedRef.current = false;
-    });
-  }, [completeRound, correctCount, finalScore, phase, sessionQuestionCount]);
+    })
+      .then((result) => {
+        const afterLevel = levelFromTotalXp(result.user.totalXp);
+        if (afterLevel > beforeLevel) {
+          setLevelUpPayload({
+            level: afterLevel,
+            lines: getUnlockLinesForLevelUp(beforeLevel, afterLevel),
+          });
+          setPostRoundUi("levelup");
+        } else {
+          setPostRoundUi("scores");
+        }
+      })
+      .catch(() => {
+        setPostRoundUi("scores");
+      });
+  }, [
+    completeRound,
+    correctCount,
+    finalScore,
+    phase,
+    postRoundUi,
+    sessionQuestionCount,
+    user,
+  ]);
 
   const handleSelect = useCallback(
     (label: string) => {
@@ -494,7 +614,7 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
     setSelected(null);
     setSecondsLeft(QUESTION_SECONDS);
     setPointsPop(null);
-  }, [wrongToMaster, clearAdvanceTimer]);
+  }, [wrongToMaster, clearAdvanceTimer, buildRetakeRound]);
 
   const handleFinishFromSummary = useCallback(() => {
     setBonusEligible(false);
@@ -507,6 +627,49 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
     const t = setTimeout(() => setPointsPop(null), 1420);
     return () => clearTimeout(t);
   }, [pointsPop]);
+
+  useLayoutEffect(() => {
+    if (!quizQuestions.length) return;
+    preloadFlagSrc(
+      flagImageSrc(quizQuestions[0]!.countryCode),
+      preloadedFlagsRef,
+      preloadInflightRef,
+    );
+    const second = quizQuestions[1];
+    if (second) {
+      preloadFlagSrc(
+        flagImageSrc(second.countryCode),
+        preloadedFlagsRef,
+        preloadInflightRef,
+      );
+    }
+  }, [quizQuestions]);
+
+  /**
+   * Warm the rest of the round after a short delay, one flag at a time, so we
+   * never fire dozens of parallel image requests alongside the visible flag.
+   */
+  useEffect(() => {
+    if (quizQuestions.length <= 2) return;
+    let cancelled = false;
+
+    const runIndex = (i: number) => {
+      if (cancelled || i >= quizQuestions.length) return;
+      preloadFlagSrc(
+        flagImageSrc(quizQuestions[i]!.countryCode),
+        preloadedFlagsRef,
+        preloadInflightRef,
+      );
+      window.setTimeout(() => runIndex(i + 1), 48);
+    };
+
+    const startId = window.setTimeout(() => runIndex(2), 220);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(startId);
+    };
+  }, [quizQuestions]);
 
   useEffect(() => {
     if (phase !== "playing" || !question) return;
@@ -596,51 +759,75 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
   }
 
   if (phase === "final") {
+    const showFinalSaving =
+      postRoundUi !== "levelup" && postRoundUi !== "scores";
+
+    const homeCorner = (
+      <Link
+        href="/"
+        className={styles.homeCorner}
+        aria-label="Back to home"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      </Link>
+    );
+
     return (
       <>
-        <Link
-          href="/"
-          className={styles.homeCorner}
-          aria-label="Back to home"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden
-          >
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" />
-          </svg>
-        </Link>
-        <div className={styles.quiz}>
-          <h2 className={layout.heroTitle}>Final results</h2>
-          <AnimatedFinalScore
-            initialScore={initialScore}
-            finalScore={finalScore}
-            bonusPoints={bonusPoints}
-          />
-          <div className={styles.actions}>
-            <button
-              type="button"
-              className={`${styles.option} ${styles.quizEndControl}`}
-              onClick={handlePlayAgain}
-            >
-              Play again
-            </button>
-            <Link
-              className={`${styles.option} ${styles.quizEndControl}`}
-              href="/"
-            >
-              ← Home
-            </Link>
+        {postRoundUi !== "levelup" ? homeCorner : null}
+        {showFinalSaving ? (
+          <div className={styles.quiz}>
+            <h2 className={layout.heroTitle}>Final results</h2>
+            <p className={styles.finalSaving}>Saving score…</p>
           </div>
-        </div>
+        ) : null}
+        {postRoundUi === "levelup" && levelUpPayload ? (
+          <LevelUpCelebration
+            level={levelUpPayload.level}
+            unlockLines={levelUpPayload.lines}
+            onContinue={() => setPostRoundUi("scores")}
+          />
+        ) : null}
+        {postRoundUi === "scores" ? (
+          <>
+            <div className={styles.quiz}>
+              <h2 className={layout.heroTitle}>Final results</h2>
+              <AnimatedFinalScore
+                initialScore={initialScore}
+                finalScore={finalScore}
+                bonusPoints={bonusPoints}
+              />
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={`${styles.option} ${styles.quizEndControl}`}
+                  onClick={handlePlayAgain}
+                >
+                  Play again
+                </button>
+                <Link
+                  className={`${styles.option} ${styles.quizEndControl}`}
+                  href="/"
+                >
+                  ← Home
+                </Link>
+              </div>
+            </div>
+          </>
+        ) : null}
       </>
     );
   }
@@ -707,50 +894,44 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
                 />
               </div>
             </div>
-            <div
-              className={styles.timerCluster}
-              role="status"
-              aria-live="off"
-              aria-label={`${secondsLeft} seconds remaining`}
-            >
-              <span
-                className={
-                  isUrgentTimer
-                    ? `${styles.timerValue} ${styles.timerValueUrgent}`
-                    : styles.timerValue
-                }
-              >
-                {secondsLeft}
-              </span>
-              <span className={styles.timerUnit}>s</span>
-            </div>
           </div>
           <div className={styles.progressMeta}>
             <span className={styles.progressFraction} aria-hidden="true">
               {index + 1}/{roundTotal}
             </span>
             <span className={styles.scorePill} aria-live="polite">
-              {playMode === "retake"
-                ? `Score ${initialScore}`
-                : `Score ${totalScore}`}
+              {`${playMode === "retake" ? initialScore : totalScore}`}
             </span>
-            {user ? (
-              <span className={styles.scorePill} aria-live="polite">
-                Lv {user.currentLevel} · XP {user.totalXp} · Next {user.xpToNextLevel}
-              </span>
-            ) : null}
           </div>
         </div>
         <p className={styles.prompt}>Which country does this flag belong to?</p>
         <div className={styles.quizCore}>
+          <div
+            className={styles.timerOrb}
+            role="status"
+            aria-live="off"
+            aria-label={`${secondsLeft} seconds remaining`}
+          >
+            <span
+              className={
+                isUrgentTimer
+                  ? `${styles.timerOrbValue} ${styles.timerValueUrgent}`
+                  : styles.timerOrbValue
+              }
+            >
+              {secondsLeft}
+            </span>
+          </div>
           <div className={styles.flagWrap}>
             {/* eslint-disable-next-line @next/next/no-img-element -- local SVGs; sizing locked in CSS */}
             <img
+              key={current.countryCode}
               src={flagImageSrc(current.countryCode)}
               alt=""
               className={styles.flagImage}
-              decoding="async"
-              fetchPriority={index === 0 ? "high" : "auto"}
+              decoding="sync"
+              loading="eager"
+              fetchPriority="high"
             />
           </div>
           <div className={styles.feedbackSlot}>
@@ -792,7 +973,7 @@ export function QuizClient({ requestedQuestionCount }: QuizClientProps) {
                 disabled={answered}
                 onClick={() => handleSelect(label)}
               >
-                {label}
+                <span>{label}</span>
               </button>
             ))}
           </div>

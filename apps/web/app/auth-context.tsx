@@ -11,8 +11,10 @@ import {
 import { Capacitor } from "@capacitor/core";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { progressFromTotalXp } from "@repo/player-leveling";
 
 const TOKEN_KEY = "flags_auth_token";
+const DEFAULT_REQUEST_TIMEOUT_MS = 20_000;
 
 function resolveApiBaseUrl(): string {
   if (process.env.NEXT_PUBLIC_API_URL) {
@@ -32,6 +34,7 @@ export type AuthUser = {
   username: string | null;
   totalXp: number;
   currentLevel: number;
+  /** XP still needed to reach the next level (not progress earned this level). */
   xpToNextLevel: number;
   xpRequiredForNextLevel: number;
 };
@@ -61,7 +64,7 @@ type AuthContextValue = {
     score: number;
     correct: number;
     total: number;
-  }) => Promise<void>;
+  }) => Promise<{ user: AuthUser; gainedXp: number }>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -71,31 +74,42 @@ function getErrorMessage(error: unknown): string {
   return error.message;
 }
 
-function calculateLevelFromXp(totalXp: number): number {
-  const BASE_LEVEL_XP = 400;
-  const LEVEL_MULTIPLIER = 1.5;
-  let level = 1;
-  let remaining = Math.max(0, Math.floor(totalXp));
-  let requirement = Math.round(BASE_LEVEL_XP * LEVEL_MULTIPLIER ** (level - 1));
-
-  while (remaining >= requirement) {
-    remaining -= requirement;
-    level += 1;
-    requirement = Math.round(BASE_LEVEL_XP * LEVEL_MULTIPLIER ** (level - 1));
-  }
-
-  return level;
-}
-
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   const apiBaseUrl = resolveApiBaseUrl();
-  const response = await fetch(`${apiBaseUrl}${path}`, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(init?.headers ?? {}),
-    },
-  });
+  const timeoutMs = DEFAULT_REQUEST_TIMEOUT_MS;
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
+  const externalSignal = init?.signal;
+  if (externalSignal) {
+    if (externalSignal.aborted) {
+      controller.abort();
+    } else {
+      externalSignal.addEventListener("abort", () => controller.abort(), {
+        once: true,
+      });
+    }
+  }
+
+  let response: Response;
+  try {
+    response = await fetch(`${apiBaseUrl}${path}`, {
+      ...init,
+      signal: controller.signal,
+      headers: {
+        "Content-Type": "application/json",
+        ...(init?.headers ?? {}),
+      },
+    });
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new Error(
+        "The server is taking too long to respond. It may be waking up, please try again in a few seconds.",
+      );
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     let message = `Request failed (${response.status})`;
@@ -131,9 +145,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const syncUserToFirebase = useCallback(async (player: FirebasePlayerSyncInput) => {
-    const leveledValue = calculateLevelFromXp(player.totalXp);
-    const currentLevel =
-      leveledValue !== player.currentLevel ? leveledValue : player.currentLevel;
+    const currentLevel = progressFromTotalXp(player.totalXp).currentLevel;
 
     await setDoc(
       doc(db, "players", player.id),
@@ -190,11 +202,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    if (!token) return;
-    void refreshUser();
-  }, [refreshUser, token]);
-
   const login = useCallback(
     async (email: string, password: string) => {
       const data = await requestJson<AuthResponse>("/auth/login", {
@@ -203,7 +210,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       persistToken(data.accessToken);
       setUser(data.user);
-      await syncUserToFirebase(data.user);
+      // Do not block login UX on Firestore sync.
+      void syncUserToFirebase(data.user).catch(() => {
+        // Keep login successful even if sync is temporarily slow/unavailable.
+      });
     },
     [persistToken, syncUserToFirebase],
   );
@@ -219,7 +229,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       persistToken(data.accessToken);
       setUser(data.user);
-      await syncUserToFirebase(data.user);
+      // Do not block signup UX on Firestore sync.
+      void syncUserToFirebase(data.user).catch(() => {
+        // Keep signup successful even if sync is temporarily slow/unavailable.
+      });
     },
     [persistToken, syncUserToFirebase],
   );
@@ -245,6 +258,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       await syncUserToFirebase(result.user);
       await refreshUser();
+      return result;
     },
     [refreshUser, syncUserToFirebase, token],
   );

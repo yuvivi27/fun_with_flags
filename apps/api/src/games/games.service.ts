@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CompleteRoundDto } from './dto/complete-round.dto';
-import { progressFromTotalXp } from './leveling';
+import { progressFromTotalXp } from '@repo/player-leveling';
 
+/** Persists round scores and XP; leaderboard UI reads from Firestore, not this service. */
 @Injectable()
 export class GamesService {
   constructor(private readonly prisma: PrismaService) {}
@@ -51,74 +52,6 @@ export class GamesService {
         xpRequiredForNextLevel: nextProgress.xpRequiredForNextLevel,
       },
       gainedXp: dto.score,
-    };
-  }
-
-  async getLeaderboard(userId: string) {
-    const [topUsers, currentUser] = await this.prisma.$transaction([
-      this.prisma.user.findMany({
-        orderBy: [{ totalXp: 'desc' }, { createdAt: 'asc' }, { id: 'asc' }],
-        take: 10,
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          totalXp: true,
-          currentLevel: true,
-        },
-      }),
-      this.prisma.user.findUnique({
-        where: { id: userId },
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          totalXp: true,
-          currentLevel: true,
-          createdAt: true,
-        },
-      }),
-    ]);
-
-    if (!currentUser) {
-      throw new NotFoundException('User not found');
-    }
-
-    const usersAhead = await this.prisma.user.count({
-      where: {
-        OR: [
-          { totalXp: { gt: currentUser.totalXp } },
-          {
-            totalXp: currentUser.totalXp,
-            OR: [
-              { createdAt: { lt: currentUser.createdAt } },
-              {
-                createdAt: currentUser.createdAt,
-                id: { lt: currentUser.id },
-              },
-            ],
-          },
-        ],
-      },
-    });
-
-    const topTen = topUsers.map((user, index) => ({
-      rank: index + 1,
-      id: user.id,
-      username: user.username ?? user.email.split('@')[0] ?? 'Player',
-      totalXp: user.totalXp,
-      currentLevel: user.currentLevel,
-    }));
-
-    return {
-      topTen,
-      currentUser: {
-        rank: usersAhead + 1,
-        id: currentUser.id,
-        username: currentUser.username ?? currentUser.email.split('@')[0] ?? 'Player',
-        totalXp: currentUser.totalXp,
-        currentLevel: currentUser.currentLevel,
-      },
     };
   }
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Exo_2 } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { AuthProvider } from "./auth-context";
@@ -10,6 +11,11 @@ const geistSans = localFont({
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
+});
+const exo2 = Exo_2({
+  weight: ["500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -30,7 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${exo2.variable}`}
+      >
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

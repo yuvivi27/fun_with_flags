@@ -3,6 +3,7 @@
   display: grid;
   place-items: center;
   padding: 24px;
+  position: relative;
 }
 
 .card {
@@ -45,6 +46,40 @@
   padding: 0 0.8rem;
 }
 
+.passwordField {
+  position: relative;
+}
+
+.inputWithAction {
+  padding-right: 2.6rem;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.passwordToggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.passwordToggleIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
 .button {
   width: 100%;
   min-height: 3rem;
@@ -78,4 +113,40 @@
   justify-content: center;
   gap: 0.6rem;
   font-size: 0.9rem;
+}
+
+.homeCorner {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(20, 20, 20, 0.82);
+  backdrop-filter: blur(10px);
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.35);
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.12s ease;
+}
+
+.homeCorner:hover {
+  background: rgba(30, 30, 30, 0.95);
+  transform: scale(1.03);
+}
+
+.homeCorner:active {
+  transform: scale(0.98);
+}
+
+.homeCorner:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.55);
+  outline-offset: 3px;
 }

@@ -1,5 +1,10 @@
 /** Offered on the game-length screen; session uses `min(choice, unique flags in pool)`. */
 export const GAME_LENGTH_OPTIONS = [10, 25, 50] as const;
+export const GAME_LENGTH_LEVEL_REQUIREMENTS = {
+  10: 1,
+  25: 3,
+  50: 8,
+} as const;
 
 /** Smallest offered round length (used for docs / validation messaging only). */
 export const DEFAULT_GAME_LENGTH = 10;
@@ -15,4 +20,16 @@ export function parseRequestedQuestionCount(
   const n = Number.parseInt(raw, 10);
   if (!Number.isFinite(n) || n < 1) return null;
   return n;
+}
+
+export function isGameLengthUnlocked(
+  questionCount: number,
+  playerLevel: number,
+): boolean {
+  const requirement =
+    GAME_LENGTH_LEVEL_REQUIREMENTS[
+      questionCount as keyof typeof GAME_LENGTH_LEVEL_REQUIREMENTS
+    ];
+  if (requirement === undefined) return false;
+  return playerLevel >= requirement;
 }

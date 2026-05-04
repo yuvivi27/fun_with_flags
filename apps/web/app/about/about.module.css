@@ -1,0 +1,119 @@
+.pageAbout {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px 20px;
+  background:
+    linear-gradient(180deg, rgba(6, 18, 36, 0.76), rgba(5, 14, 29, 0.88)),
+    url("/world-map-bg.svg") center 44% / 124% 118% no-repeat,
+    radial-gradient(80rem 24rem at 50% 74%, rgba(0, 210, 255, 0.14), transparent 70%),
+    linear-gradient(180deg, #0e2a49 0%, #0a1f39 45%, #06162d 100%);
+}
+
+.mainAbout {
+  width: min(100%, 42rem);
+  padding: clamp(1.1rem, 2.6vw, 1.7rem);
+  border-radius: 1.1rem;
+  border: 1px solid rgba(86, 143, 208, 0.24);
+  background:
+    radial-gradient(55rem 20rem at 50% -10%, rgba(0, 196, 255, 0.08), transparent 72%),
+    rgba(10, 30, 52, 0.84);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 190, 255, 0.08) inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  text-align: center;
+  margin-top: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display), var(--font-geist-sans), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 4.7vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  color: #eaf7ff;
+  text-shadow: 0 0 14px rgba(0, 190, 255, 0.34);
+}
+
+.aboutBody {
+  margin: 0;
+  max-width: 33rem;
+  font-family: var(--font-display), var(--font-geist-sans), system-ui, sans-serif;
+  font-size: clamp(1rem, 2.9vw, 1.08rem);
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  color: rgba(230, 244, 255, 0.95);
+}
+
+.aboutBody a {
+  color: #78d8ff;
+}
+
+.aboutBody a:hover {
+  color: #a6e9ff;
+}
+
+.actionRow {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.primaryButton,
+.secondaryButton {
+  width: 100%;
+  max-width: 22rem;
+  min-height: 3.05rem;
+  border-radius: 999px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.2rem;
+  font-family: var(--font-display), var(--font-geist-sans), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: transform 0.14s ease, filter 0.14s ease, border-color 0.14s ease;
+}
+
+.primaryButton {
+  border: 1px solid rgba(56, 202, 255, 0.36);
+  color: #eaf7ff;
+  background: linear-gradient(180deg, #10b8da 0%, #1b8be0 58%, #185ad1 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.13) inset,
+    0 10px 24px rgba(0, 122, 255, 0.2),
+    0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.secondaryButton {
+  border: 1px solid rgba(94, 148, 214, 0.2);
+  color: rgba(246, 247, 250, 0.96);
+  background: linear-gradient(180deg, rgba(21, 43, 69, 0.96), rgba(15, 32, 54, 0.98));
+}
+
+.primaryButton:hover,
+.secondaryButton:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+@media (max-width: 600px) {
+  .pageAbout {
+    padding: 16px 12px;
+  }
+
+  .mainAbout {
+    gap: 0.85rem;
+    border-radius: 0.95rem;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    min-height: 2.85rem;
+  }
+}

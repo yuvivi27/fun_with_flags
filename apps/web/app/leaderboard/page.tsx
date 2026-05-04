@@ -11,8 +11,11 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import pageStyles from "../page.module.css";
 import { useAuth } from "../auth-context";
+import {
+  effectivePlayerLevelFromUser,
+  levelFromTotalXp,
+} from "@repo/player-leveling";
 import { db } from "../../firebaseConfig";
 import styles from "./leaderboard.module.css";
 
@@ -38,7 +41,7 @@ function mockLeaderboard(currentUser: LeaderboardEntry): LeaderboardResponse {
       id: `mock-player-${rank}`,
       username: `Player${rank}`,
       totalXp,
-      currentLevel: Math.max(1, Math.floor(totalXp / 450) + 1),
+      currentLevel: levelFromTotalXp(totalXp),
     };
   });
 
@@ -65,12 +68,13 @@ async function fetchTopPlayers(
       currentLevel?: number;
     };
 
+    const totalXp = data.totalXP ?? 0;
     return {
       rank: index + 1,
       id: data.userId ?? playerDoc.id,
       username: data.username ?? `Player ${index + 1}`,
-      totalXp: data.totalXP ?? 0,
-      currentLevel: data.currentLevel ?? 1,
+      totalXp,
+      currentLevel: levelFromTotalXp(totalXp),
     };
   });
 
@@ -117,7 +121,7 @@ export default function LeaderboardPage() {
       id: user?.id ?? "current-user",
       username: user?.username ?? user?.email ?? "You",
       totalXp: user?.totalXp ?? 0,
-      currentLevel: user?.currentLevel ?? 1,
+      currentLevel: effectivePlayerLevelFromUser(user),
     }),
     [user],
   );
@@ -132,8 +136,6 @@ export default function LeaderboardPage() {
     setLoading(true);
     setError(null);
 
-    // Old PostgreSQL leaderboard fetch kept for rollback:
-    // fetchLeaderboard(token)
     fetchTopPlayers(fallbackCurrentUser)
       .then((payload) => setData(payload))
       .catch(() => {
@@ -144,12 +146,9 @@ export default function LeaderboardPage() {
   }, [fallbackCurrentUser, token, user]);
 
   return (
-    <div className={`${pageStyles.page} ${styles.pageLeaderboard}`}>
-      <main className={`${pageStyles.main} ${styles.mainLeaderboard}`}>
-        <h1 className={pageStyles.heroTitle}>Leaderboard</h1>
-        <p className={pageStyles.heroSubtitle}>
-          Top 10 players by total XP across all games.
-        </p>
+    <div className={styles.pageLeaderboard}>
+      <main className={styles.mainLeaderboard}>
+        <h1 className={styles.title}>LEADERBOARD</h1>
 
         {loading ? (
           <div className={styles.stateCard}>Loading leaderboard...</div>
@@ -177,25 +176,31 @@ export default function LeaderboardPage() {
                 </li>
               ))}
             </ol>
+
+            <div className={styles.yourPlacementBlock} aria-label="Your placement">
+              <p className={styles.yourPlacementLabel}>YOUR PLACEMENT</p>
+              <div className={`${styles.boardRow} ${styles.currentUserRow}`}>
+                <span className={styles.rankCell}>
+                  #{data?.currentUser.rank ?? fallbackCurrentUser.rank}
+                </span>
+                <span className={styles.nameCell}>
+                  {data?.currentUser.username ?? fallbackCurrentUser.username}
+                </span>
+                <span className={styles.xpCell}>
+                  {data?.currentUser.totalXp ?? fallbackCurrentUser.totalXp}
+                </span>
+                <span className={styles.levelCell}>
+                  Lv {data?.currentUser.currentLevel ?? fallbackCurrentUser.currentLevel}
+                </span>
+              </div>
+            </div>
           </section>
         )}
 
-        <Link
-          className={`${pageStyles.menuButton} ${pageStyles.menuButtonSecondary}`}
-          href="/"
-        >
+        <Link className={styles.backButton} href="/">
           Back to Main
         </Link>
       </main>
-
-      <aside className={styles.currentUserFooter} aria-label="Your current rank">
-        <strong>Your placement</strong>
-        <div className={styles.currentUserGrid}>
-          <span>Rank #{data?.currentUser.rank ?? fallbackCurrentUser.rank}</span>
-          <span>XP {data?.currentUser.totalXp ?? fallbackCurrentUser.totalXp}</span>
-          <span>Level {data?.currentUser.currentLevel ?? fallbackCurrentUser.currentLevel}</span>
-        </div>
-      </aside>
     </div>
   );
 }

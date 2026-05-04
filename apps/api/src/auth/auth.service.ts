@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcryptjs';
-import { progressFromTotalXp } from '../games/leveling';
+import { progressFromTotalXp } from '@repo/player-leveling';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { SignupDto } from './dto/signup.dto';
@@ -83,7 +83,8 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    return this.buildAuthResponse(user);
+    const { passwordHash: _unusedHash, ...safeUser } = user;
+    return this.buildAuthResponse(safeUser);
   }
 
   async me(userId: string) {

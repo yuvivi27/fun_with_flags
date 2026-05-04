@@ -24,6 +24,8 @@ export const nextJsConfig = [
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Capacitor / Gradle outputs (generated JS must not be linted as app source)
+    "android/**",
   ]),
   {
     ...pluginReact.configs.flat.recommended,

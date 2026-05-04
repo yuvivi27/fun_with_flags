@@ -1,6 +1,7 @@
 /**
- * Builds `app/game/flags-database.json` from `world-countries` + flag-icons availability.
- * Run from apps/web: `node ./scripts/build-flags-database.mjs`
+ * Builds the base `app/game/flags-database.json` from `world-countries` + flag-icons availability.
+ * Advanced pack rows (difficulty 5) are merged by `add-advanced-flag-pack.mjs`.
+ * From apps/web: `pnpm run flags:build-db` (runs this script, then the advanced merge).
  */
 import { existsSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -44,8 +45,10 @@ function add(row) {
   byCode.set(row.code, row);
 }
 
-for (const c of countries.filter((x) => x.unMember)) {
+for (const c of countries) {
+  if (!c.cca2) continue;
   const code = c.cca2.toLowerCase();
+  if (code === "aq") continue; // no playable population / frequently omitted in sets
   add({
     code,
     name: c.name.common,
@@ -56,6 +59,67 @@ for (const c of countries.filter((x) => x.unMember)) {
 const tw = countries.find((x) => x.cca2 === "TW");
 if (tw) {
   add({ code: "tw", name: tw.name.common, difficulty: 2 });
+}
+
+const US_STATES = [
+  ["al", "Alabama"],
+  ["ak", "Alaska"],
+  ["az", "Arizona"],
+  ["ar", "Arkansas"],
+  ["ca", "California"],
+  ["co", "Colorado"],
+  ["ct", "Connecticut"],
+  ["de", "Delaware"],
+  ["fl", "Florida"],
+  ["ga", "Georgia"],
+  ["hi", "Hawaii"],
+  ["id", "Idaho"],
+  ["il", "Illinois"],
+  ["in", "Indiana"],
+  ["ia", "Iowa"],
+  ["ks", "Kansas"],
+  ["ky", "Kentucky"],
+  ["la", "Louisiana"],
+  ["me", "Maine"],
+  ["md", "Maryland"],
+  ["ma", "Massachusetts"],
+  ["mi", "Michigan"],
+  ["mn", "Minnesota"],
+  ["ms", "Mississippi"],
+  ["mo", "Missouri"],
+  ["mt", "Montana"],
+  ["ne", "Nebraska"],
+  ["nv", "Nevada"],
+  ["nh", "New Hampshire"],
+  ["nj", "New Jersey"],
+  ["nm", "New Mexico"],
+  ["ny", "New York"],
+  ["nc", "North Carolina"],
+  ["nd", "North Dakota"],
+  ["oh", "Ohio"],
+  ["ok", "Oklahoma"],
+  ["or", "Oregon"],
+  ["pa", "Pennsylvania"],
+  ["ri", "Rhode Island"],
+  ["sc", "South Carolina"],
+  ["sd", "South Dakota"],
+  ["tn", "Tennessee"],
+  ["tx", "Texas"],
+  ["ut", "Utah"],
+  ["vt", "Vermont"],
+  ["va", "Virginia"],
+  ["wa", "Washington"],
+  ["wv", "West Virginia"],
+  ["wi", "Wisconsin"],
+  ["wy", "Wyoming"],
+];
+
+for (const [stateCode, stateName] of US_STATES) {
+  add({
+    code: `us-${stateCode}`,
+    name: stateName,
+    difficulty: 4,
+  });
 }
 
 const merged = [...byCode.values()].sort((a, b) => {
