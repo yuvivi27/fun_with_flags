@@ -19,9 +19,10 @@ Render and Vercel both deploy from GitHub.
      - If you use custom domain, include it too.
      - For multiple origins, comma-separate them.
 
-Render will run:
-- build: `pnpm install --frozen-lockfile && pnpm --filter api build`
-- start: `pnpm --filter api exec prisma migrate deploy && pnpm --filter api start:prod`
+Render will run (see root `package.json` script `build:api:ci` and `render.yaml`):
+- build: `pnpm install --frozen-lockfile && pnpm run build:api:ci` (builds `@repo/player-leveling`, runs `prisma generate`, then `nest build` — avoids relying on root `turbo` during Render’s build)
+- pre-deploy (migrations): `pnpm --filter api exec prisma migrate deploy`
+- start: `pnpm --filter api start:prod`
 
 After deploy, copy your public API URL:
 - `https://<your-render-api>.onrender.com`
@@ -86,6 +87,9 @@ Install APK from:
 
 ## Troubleshooting
 
+- Render build exits with status `1`:
+  - In the API service **Settings**, ensure there is **no** custom Install Command that uses `--prod` / omits devDependencies — `@nestjs/cli`, `prisma`, and `typescript` are required to **build** the API.
+  - After changing `render.yaml`, sync/redeploy the blueprint or paste the build command from [`render.yaml`](./render.yaml) into the dashboard so it matches.
 - `401` on mobile/web:
   - Check API URL points to Render.
 - CORS errors in browser:

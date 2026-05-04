@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:api:ci": "pnpm --filter @repo/player-leveling build && pnpm --filter api exec prisma generate && pnpm --filter api build",
     "dev": "pnpm --filter web dev",
     "dev:clean": "powershell -ExecutionPolicy Bypass -File scripts/dev-web.ps1",
     "dev:all": "turbo run dev",

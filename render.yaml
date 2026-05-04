@@ -10,7 +10,7 @@ services:
     runtime: node
     plan: free
     rootDir: .
-    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile && pnpm exec turbo run build --filter=api
+    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile && pnpm run build:api:ci
     preDeployCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm --filter api exec prisma migrate deploy
     startCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm --filter api start:prod
     healthCheckPath: /
